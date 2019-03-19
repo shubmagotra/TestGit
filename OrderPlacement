@@ -1,0 +1,81 @@
+package shop2testing;
+
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
+
+public class OrderPlacement {
+
+	public static void main(String[] args) throws InterruptedException {
+		
+		System.setProperty("webdriver.chrome.driver", "C://Users//shubham//Downloads//chromedriver_win32//chromedriver.exe//");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		driver.get("https://shopdev.iccsafe.org/");
+		
+		driver.findElement(By.className("title-category-dropdown")).click();
+		driver.findElement(By.xpath("//*[@id=\"menu.vertical\"]/nav/ul/li[1]/a")).click();
+		driver.findElement(By.xpath("//*[@id=\"layered-ajax-list-products\"]/div[3]/ol/li[3]/div/div[2]/div[3]/form/button")).click();
+		driver.findElement(By.id("qty_48278")).sendKeys("0002");
+		 Thread.sleep(1000);
+		//Select is used to select the drop down value
+		Select duration = new Select(driver.findElement(By.id("attribute187")));
+		duration.selectByValue("148");
+		//List is used to list down all the attributes in drop down
+		List <WebElement> listofduration = driver.findElements(By.xpath("//*[@id=\"attribute187\"]"));
+		for (WebElement ele : listofduration)
+			{
+			System.out.println("The list of duration present are: "+ele.getText());
+			}
+		
+	    driver.findElement(By.id("product-addtocart-button")).click();
+	    Thread.sleep(3000);
+	    driver.findElement(By.xpath("/html/body/div[7]/div/div/div/div/div/ul/li[1]/a")).click();
+	    Thread.sleep(3000);
+	    driver.findElement(By.xpath("//*[@id=\"maincontent\"]/div[3]/div/div[2]/div/ul/li[1]/button")).click();
+	    driver.findElement(By.id("email")).sendKeys("smtest@infobeans.com");
+	    Thread.sleep(1000);
+	    driver.findElement(By.id("pass")).sendKeys("admin@123");
+	    Thread.sleep(1000);
+	    driver.findElement(By.id("send2")).click();
+	    Thread.sleep(10000);
+	    driver.findElement(By.xpath("//*[@id=\"terms_and_conditions_checkbox\"]")).click();
+	    Thread.sleep(2000);
+	    driver.findElement(By.xpath("//*[@id=\"paymentechhpf\"]")).click();
+	    Thread.sleep(2000);
+	   driver.findElement(By.id("opcheckout-button-place-order")).click();
+	   Thread.sleep(5000);
+	   Select Industry = new Select(driver.findElement(By.xpath("//*[@id=\"ind_industry_ext\"]")));
+		Industry.selectByVisibleText("Construction");
+		
+		List <WebElement> listofindustries = driver.findElements(By.xpath("//*[@id=\"ind_industry_ext\"]"));
+		for (WebElement ele1 : listofindustries)
+		{
+			System.out.println("The list of industries are: "+ele1.getText());
+		}
+		Thread.sleep(1000);
+		Select Technical = new Select(driver.findElement(By.xpath("//*[@id=\"ind_specialty_ext\"]")));
+		Technical.selectByVisibleText("Architect");
+		Thread.sleep(1000);
+		Select Trade = new Select(driver.findElement(By.xpath("//*[@id=\"ind_trade_ext\"]")));
+		Trade.selectByVisibleText("Construction Manager");
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//*[@id=\"maincontent\"]/div[3]/div/div[3]/form/fieldset/div[4]/div/button")).click();
+ 
+		}
+
+}
+
+
+
+
+	
